@@ -1,28 +1,17 @@
-## Tuesday
-# implement the L2 loss function
-# train the autoencoder
-# write function for loading in sequence data
-# describe and implement training regimine
-
-## Wednesday
-# debug/train the neural network for classifying the Rap1 binding
-# implement k-fold cross-validation
-# implement genetic algorithm or something for hyperparmater tuning
-
-## Thursday
-# evaluate the model on the final test set
-# write all unit tests
-# get tests working
+## Left to do
+# implement MSE loss and modify AE
+# implement extension part
+# Test on final dataset
+# finish write up
 # sphinx autodoc
-# write up
-
-## Friday
-# finish write-up
-# turn in assignment
+# unit tests
 
 
 import numpy as np
+import matplotlib.pyplot as plt
 from tqdm import tqdm
+
+import sklearn.metrics as skmetrics
 
 class NeuralNetwork:
     '''
@@ -56,6 +45,7 @@ class NeuralNetwork:
         self._depth = len(nn_architechture)
         self.loss_fnc = loss_function
         self.param_dict = self._init_params()
+        self._model_trained = False
 
     def _init_params(self):
         '''
@@ -167,7 +157,7 @@ class NeuralNetwork:
         # setting up dict for saving partial derivative values
         grad_dict = {}
         # getting partial derivate of loss with respect to final activation
-        dA_prev = self._binary_crossentropy_backprop(y, y_hat)
+        dA_prev = self._loss_function_backprop(y, y_hat)
         # iterating through NN backwards to calculate gradients
         for idx_prev, layer in list(enumerate(self.arch))[::-1]:
             idx_curr = idx_prev + 1
@@ -241,10 +231,6 @@ class NeuralNetwork:
 
     def fit_batch_wise(self, data_loader):
         '''
-        This function trains the model.
-
-        Args:
-            data_loader
         '''
         per_epoch_loss_train = []
         per_epoch_loss_val = []
@@ -254,6 +240,7 @@ class NeuralNetwork:
             for batch in data_loader.train_queue:
                 X, y = batch
                 y_hat, cache = self.forward(X)
+                print(y_hat.shape)
                 curr_loss_train.append(self._loss_function(y, y_hat))
                 grad_dict = self.backprop(y, y_hat, cache)
                 self._update_params(grad_dict)
@@ -267,7 +254,7 @@ class NeuralNetwork:
         per_epoch_loss = {'train': per_epoch_loss_train, 'val': per_epoch_loss_val}
         return per_epoch_loss
 
-    def fit(self, X_train, y_train, X_val, y_val):
+    def fit(self, X_train, y_train, X_val, y_val, early_stop=[10, 1e-12]):
         '''
         This function trains the nerual network via training for
         the number of epochs defined at the initialization of this
@@ -278,11 +265,17 @@ class NeuralNetwork:
             y_train (array-like): Labels for training set.
             X_val (array-like): Input features of validation set.
             y_val (array-like): Labels for validation set.
+            early_stop (bool, defatul=True): Whether or not to stop when
+                validation loss stops decreasing by a rate slower than
+                early_stop_tol.
 
         Returns:
             per_epoch_loss_train (list): List of per epoch loss for training set.
             per_epoch_loss_val (list): List of per epoch loss for validation set.
         '''
+        # Setting up ealry stopping
+        es_tol = early_stop[0]
+        es_thresh = early_stop[1]
         # Swaping from batch first to features firs for NN implementaton
         X_train = np.swapaxes(X_train, 1, 0) # [features, batch]
         y_train = np.swapaxes(y_train, 1, 0) # [1, batch]
@@ -290,22 +283,44 @@ class NeuralNetwork:
         y_val = np.swapaxes(y_val, 1, 0) # [1, batch]
         # Training Loop
         per_epoch_loss_train = []
+        per_epoch_acc_train = []
         per_epoch_loss_val = []
-        for _ in range(self.epochs):
+        per_epoch_acc_val = []
+        early_stop_count = 0
+        for idx in range(self.epochs):
             # training pass
             y_hat, cache = self.forward(X_train)
             per_epoch_loss_train.append(self._loss_function(y_train, y_hat))
+            per_epoch_acc_train.append(self.accuracy(y_train, y_hat))
             grad_dict = self.backprop(y_train, y_hat, cache)
-            self._update_params(grad_dict)
             # validation pass
             y_hat, _ = self.forward(X_val)
             per_epoch_loss_val.append(self._loss_function(y_val, y_hat))
-        return [per_epoch_loss_train, per_epoch_loss_val]
+            per_epoch_acc_val.append(self.accuracy(y_val, y_hat))
+            # updating parameters
+            self._update_params(grad_dict)
+            # Early stopping mechanism
+            if idx >= 1:
+                if (per_epoch_loss_val[idx] - per_epoch_loss_val[idx-1]) > es_thresh:
+                    early_stop_count += 1
+                if (per_epoch_loss_val[idx] - per_epoch_loss_val[idx-1]) < 0:
+                    early_stop_count = 0
+            if early_stop_count > es_tol:
+                break
+        self._model_trained = True
+        return [per_epoch_loss_train, per_epoch_loss_val, per_epoch_acc_train, per_epoch_acc_val]
 
     def predict(self, X):
         '''
+        This function returns the prediction of the nerual network model.
 
+        Args:
+            X (array-like): Input data for prediction.
+
+        Returns:
+            y_hat (array-like): Prediction.
         '''
+        X = X.T
         y_hat, _ = self.forward(X)
         return y_hat
 
@@ -367,18 +382,6 @@ class NeuralNetwork:
         dZ[Z <= 0] = 0
         return dZ
 
-    def _mean_squared_error(self, y, y_hat):
-        '''
-
-        '''
-        pass
-
-    def _mean_squared_error_backprop(self, y, y_hat):
-        '''
-
-        '''
-        pass
-
     def _binary_crossentropy(self, y, y_hat):
         '''
         Binary crossentropy loss function.
@@ -393,7 +396,7 @@ class NeuralNetwork:
         '''
         # assuming y and y_hat have dimensions [1, batch_size]
         m = y_hat.shape[1]
-        eps = 1e-12
+        eps = 1e-20
         y_hat = np.clip(y_hat, eps, 1-eps)
         batch_loss = -1 / m * (np.dot(y, np.log(y_hat).T) + np.dot(1-y, np.log(1-y_hat).T)) # dims: [1, 1]
         loss = np.squeeze(batch_loss) # dims: [1]
@@ -410,13 +413,39 @@ class NeuralNetwork:
         Returns:
             dA (array-like): partial derivative of loss with respect
                 to A matrix.
-
         '''
         # assuming y and y_hat have dimensions [1, batch_size]
         # calculating partial derivative of loss with respect to A matrix
-        eps = 1e-12
-        y_hat = np.clip(y_hat, eps, 1-eps)
         dA = -(np.divide(y, y_hat) - np.divide(1-y, 1-y_hat))
+        return dA
+
+    def _mean_squared_error(self, y, y_hat):
+        '''
+        Mean squared error loss.
+
+        Args:
+            y (array-like): Ground truth output.
+            y_hat (array-like): Predicted output.
+
+        Returns:
+            (array-like): Average loss of mini-batch.
+        '''
+        loss = np.mean(np.square(y - y_hat))
+        return loss
+
+    def _mean_squared_error_backprop(self, y, y_hat):
+        '''
+        Mean square error loss derivate.
+
+        Args:
+            y (array-like): Ground truth output.
+            y_hat (array-like): Predicted output.
+
+        Returns:
+            dA (array-like): partial derivative of loss with respect
+                to A matrix.
+        '''
+        dA = -2*(y-y_hat)
         return dA
 
     def _loss_function(self, y, y_hat):
@@ -426,15 +455,15 @@ class NeuralNetwork:
         functions than just binary crossentropy.
 
         Args:
-            y_hat (array-like): Predicted output.
             y (array-like): Ground truth output.
+            y_hat (array-like): Predicted output.
 
         Returns:
             loss (array-like): Average loss of mini-batch.
 
         '''
         assert y.shape == y_hat.shape, 'Predicted value dimensions need to match labels'
-        assert self.loss_fnc in ['binary_crossentropy', 'mean_squared_error'], 'Unsupported loss function'
+        assert self.loss_fnc in ['binary_crossentropy', 'mse'], 'Unsupported loss function'
         if self.loss_fnc == 'binary_crossentropy':
             # if y has dimesnions greater than 1 e.g.
             ## PROB CHANGE THIS
@@ -450,7 +479,121 @@ class NeuralNetwork:
                 loss = self._binary_crossentropy(y, y_hat)
             else:
                 print('LOSS FUNCTION ERROR: y must have at least dimensionality of 1.')
+        if self.loss_fnc == 'mse':
+            loss = self._mean_squared_error(y, y_hat)
         return loss
+
+    def _loss_function_backprop(self, y, y_hat):
+        '''
+        This function performs the derivative of the loss function with respect
+        to the loss itself.
+
+        Args:
+            y (array-like): Ground truth output.
+            y_hat (array-like): Predicted output.
+
+        Returns:
+            dA (array-like): partial derivative of loss with respect
+                to A matrix.
+        '''
+        if self.loss_fnc == 'binary_crossentropy':
+            dA = self._binary_crossentropy_backprop(y, y_hat)
+        elif self.loss_fnc == 'mse':
+            dA = self._mean_squared_error_backprop(y, y_hat)
+        return dA
+
+    def accuracy(self, y_hat, y, decision_boundry=0.5):
+        '''
+        This function takes the accuracy for binary classification tasks.
+        Args:
+            y (array-like): Ground truth output.
+            y_hat (array-like): Predicted output.
+        Returns:
+            acc (float): Average accuracy
+        '''
+        y_hat = np.round(np.squeeze(y_hat))
+        y = np.round(np.squeeze(y))
+        acc = np.mean(1 - np.abs(y - y_hat))
+        return acc
+
+    def calculate_auroc(self, X, y_gt, n_steps=100, make_plot=True):
+        '''
+        This function calculates the AUROC and plots the ROC curve.
+
+        Args:
+            X (array-like): Input testing data
+            y_gt (array-like): Ground truth labels for testing data
+            n_steps (int, default=100): Number of threshold steps to use when
+                calculating.
+            plot (bool): Boolean regarding a plot.
+
+        Returns:
+
+        '''
+        assert self._model_trained == True, 'Model must be trained prior to calculatin auroc'
+        # forward pass for prediction
+        X = X.T
+        y_hat, _ = self.forward(X)
+        y_hat = np.squeeze(y_hat)
+        y_gt = np.squeeze(y_gt)
+        fpr, tpr, thresholds = skmetrics.roc_curve(y_gt, y_hat)
+        roc_auc = skmetrics.auc(fpr, tpr)
+        display = skmetrics.RocCurveDisplay(fpr=fpr, tpr=tpr, roc_auc=roc_auc)
+        if make_plot == True:
+            display.plot()
+            plt.show()
+        return roc_auc
+
+
+        # # calculating AUROC myself
+        # TPR = [0]
+        # FPR = [0]
+        # ROC_set = set()
+        # for thresh in np.linspace(0, 1, n_steps):
+        #     pred = y_hat.copy()
+        #     pred[pred < thresh] = 0
+        #     pred[pred >= thresh] = 1
+        #     TP = 0
+        #     FP = 0
+        #     TN = 0
+        #     FN = 0
+        #     for i in range(len(pred)):
+        #         if y_gt[i]==pred[i]==1:
+        #            TP += 1
+        #         if y_gt[i]==1 and y_gt[i]!=pred[i]:
+        #            FP += 1
+        #         if y_gt[i]==pred[i]==0:
+        #            TN += 1
+        #         if y_gt[i]==0 and y_gt[i]!=pred[i]:
+        #            FN += 1
+        #     if (TP+FN) > 0 and (FP+TN) > 0:
+        #         TPR_temp = TP/(TP+FN)
+        #         FPR_temp = FP/(FP+TN)
+        #         if (TPR_temp, FPR_temp) not in ROC_set:
+        #             TPR.append(TPR_temp)
+        #             FPR.append(FPR_temp)
+        #             ROC_set.add((TPR_temp, FPR_temp))
+        # TPR.append(1)
+        # FPR.append(1)
+        # TPR = np.array(TPR)
+        # FPR = np.array(FPR)
+        # fig = plt.figure(figsize=(5, 5))
+        # if make_plot == True:
+        #     plt.plot(FPR, TPR)
+        #     plt.plot(np.linspace(0, 1, n_steps), np.linspace(0, 1, n_steps), 'k', linestyle='dashed')
+        #     plt.legend(['ROC Curve', 'Random Guess Curve'])
+        #     plt.show()
+        # print(skmetrics.roc_auc_score(y_gt, y_hat))
+        # fpr, tpr, thresholds = skmetrics.roc_curve(y_gt, y_hat)
+        # roc_auc = skmetrics.auc(fpr, tpr)
+        # auroc = skmetrics.auc(FPR, TPR)
+        # print(roc_auc, 'theirs')
+        # print(auroc, 'mine')
+        # display = skmetrics.RocCurveDisplay(fpr=fpr, tpr=tpr, roc_auc=roc_auc)
+        # if make_plot == True:
+        #     display.plot()
+        #     plt.show()
+        # return roc_auc
 
 
 class DataLoader:
