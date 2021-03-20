@@ -1,17 +1,15 @@
 ## Left to do
-# implement MSE loss and modify AE
-# implement extension part
-# Test on final dataset
-# finish write up
-# sphinx autodoc
-# unit tests
-
+# generate sphinx autodoc
+# write unit tests
+# set up pytest functionality
+# turn in Project
 
 import numpy as np
 import matplotlib.pyplot as plt
-from tqdm import tqdm
-
 import sklearn.metrics as skmetrics
+
+
+### CLASS DEFINITONS ###
 
 class NeuralNetwork:
     '''
@@ -19,7 +17,7 @@ class NeuralNetwork:
     and allows for its training and use for prediction base on user
     defined input parameters.
 
-    Paramters:
+    Parameters:
         nn_architechture (list of dicts): This list of dictionaries describes
             the fully connected layers of the artificial neural network.
         lr (float): Learning Rate (alpha).
@@ -229,31 +227,6 @@ class NeuralNetwork:
             self.param_dict['b' + str(layer_idx)] -= lr * grad_dict['db' + str(layer_idx)]
         return None
 
-    def fit_batch_wise(self, data_loader):
-        '''
-        '''
-        per_epoch_loss_train = []
-        per_epoch_loss_val = []
-        for _ in range(self.epochs):
-            curr_loss_train = []
-            curr_loss_val = []
-            for batch in data_loader.train_queue:
-                X, y = batch
-                y_hat, cache = self.forward(X)
-                print(y_hat.shape)
-                curr_loss_train.append(self._loss_function(y, y_hat))
-                grad_dict = self.backprop(y, y_hat, cache)
-                self._update_params(grad_dict)
-            per_epoch_loss_train.append(np.mean(np.array(curr_loss_train)))
-            for batch in data_loader.val_queue:
-                X, y = batch
-                y_hat, _ = self.forward(X)
-                curr_loss_val.append(self._loss_function(y, y_hat))
-            per_epoch_loss_val.append(np.mean(np.array(curr_loss_val)))
-
-        per_epoch_loss = {'train': per_epoch_loss_train, 'val': per_epoch_loss_val}
-        return per_epoch_loss
-
     def fit(self, X_train, y_train, X_val, y_val, early_stop=[10, 1e-12]):
         '''
         This function trains the nerual network via training for
@@ -322,6 +295,7 @@ class NeuralNetwork:
         '''
         X = X.T
         y_hat, _ = self.forward(X)
+        y_hat = y_hat.T
         return y_hat
 
     def _sigmoid(self, Z):
@@ -528,7 +502,8 @@ class NeuralNetwork:
             plot (bool): Boolean regarding a plot.
 
         Returns:
-
+            roc_auc (float): Area under the reciever operator characterstic
+                curve or AUROC.
         '''
         assert self._model_trained == True, 'Model must be trained prior to calculatin auroc'
         # forward pass for prediction
@@ -543,88 +518,3 @@ class NeuralNetwork:
             display.plot()
             plt.show()
         return roc_auc
-
-
-        # # calculating AUROC myself
-        # TPR = [0]
-        # FPR = [0]
-        # ROC_set = set()
-        # for thresh in np.linspace(0, 1, n_steps):
-        #     pred = y_hat.copy()
-        #     pred[pred < thresh] = 0
-        #     pred[pred >= thresh] = 1
-        #     TP = 0
-        #     FP = 0
-        #     TN = 0
-        #     FN = 0
-        #     for i in range(len(pred)):
-        #         if y_gt[i]==pred[i]==1:
-        #            TP += 1
-        #         if y_gt[i]==1 and y_gt[i]!=pred[i]:
-        #            FP += 1
-        #         if y_gt[i]==pred[i]==0:
-        #            TN += 1
-        #         if y_gt[i]==0 and y_gt[i]!=pred[i]:
-        #            FN += 1
-        #     if (TP+FN) > 0 and (FP+TN) > 0:
-        #         TPR_temp = TP/(TP+FN)
-        #         FPR_temp = FP/(FP+TN)
-        #         if (TPR_temp, FPR_temp) not in ROC_set:
-        #             TPR.append(TPR_temp)
-        #             FPR.append(FPR_temp)
-        #             ROC_set.add((TPR_temp, FPR_temp))
-        # TPR.append(1)
-        # FPR.append(1)
-        # TPR = np.array(TPR)
-        # FPR = np.array(FPR)
-        # fig = plt.figure(figsize=(5, 5))
-        # if make_plot == True:
-        #     plt.plot(FPR, TPR)
-        #     plt.plot(np.linspace(0, 1, n_steps), np.linspace(0, 1, n_steps), 'k', linestyle='dashed')
-        #     plt.legend(['ROC Curve', 'Random Guess Curve'])
-        #     plt.show()
-        # print(skmetrics.roc_auc_score(y_gt, y_hat))
-        # fpr, tpr, thresholds = skmetrics.roc_curve(y_gt, y_hat)
-        # roc_auc = skmetrics.auc(fpr, tpr)
-        # auroc = skmetrics.auc(FPR, TPR)
-        # print(roc_auc, 'theirs')
-        # print(auroc, 'mine')
-        # display = skmetrics.RocCurveDisplay(fpr=fpr, tpr=tpr, roc_auc=roc_auc)
-        # if make_plot == True:
-        #     display.plot()
-        #     plt.show()
-        # return roc_auc
-
-
-class DataLoader:
-    '''
-    This class is used to load data while training a model. The DataLoader
-    class generates a queue for training, validation, and testing.
-
-    Parameters:
-        data (Pandas DataFrame): Dataset including features and
-        X_cols (list of strings): Column names corresponding to features
-        y_col (string): Column name corresponding to labels
-        split (list of floats): Floats describing the splitting ratio for the
-            training, validation, and testing sets.
-        seed (int): Seed for random processes involved in sampling the data.
-        batch_size (int): Mini-batch size.
-
-    Attributes:
-        train_queue (list of array-like):
-        val_queue (list of array-like):
-        test_queue ()
-
-    '''
-    def __init__(self, data, X_cols, y_col, split=[0.8, 0.1, 0.1], seed=14, batch_size=16):
-        self.df = data
-        self.X_cols = X_cols
-        self.y_col = y_col
-        self._split = split
-
-    def _split_data(self):
-        df = self.df
-        df = df.shuffle(frac=1)
-        df = df.reset_index(drop=True)
-        for grp_idx, grp in df.groupby(y_col):
-            pass

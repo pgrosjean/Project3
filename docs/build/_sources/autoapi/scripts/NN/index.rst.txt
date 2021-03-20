@@ -1,0 +1,376 @@
+:mod:`scripts.NN`
+=================
+
+.. py:module:: scripts.NN
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   scripts.NN.NeuralNetwork
+
+
+
+.. class:: NeuralNetwork(nn_architechture, lr=0.05, seed=1, epochs=100, loss_function='binary_crossentropy')
+
+
+   This is a nerual network class that generates a nerual network
+   and allows for its training and use for prediction base on user
+   defined input parameters.
+
+   :param nn_architechture: This list of dictionaries describes
+                            the fully connected layers of the artificial neural network.
+   :type nn_architechture: list of dicts
+   :param lr: Learning Rate (alpha).
+   :type lr: float
+   :param seed: Random seed for assuring reproducibility.
+   :type seed: int
+   :param lambda: L2 regularization paramter.
+   :type lambda: float
+   :param batch_size: Size of mini-batchs used for training.
+   :type batch_size: int
+   :param epochs: Number of epochs during training.
+   :type epochs: int
+   :param loss_function: Name of loss function can be one of multiple.
+   :type loss_function: str
+
+   .. attribute:: arch
+
+      This list of dictionaries describes
+      the fully connected layers of the artificial neural network.
+
+      :type: list of dicts
+
+   .. attribute:: param_dict
+
+      Dictionary of parameters in neural network.
+
+      :type: dict
+
+   .. attribute:: lr
+
+      Learning rate.
+
+      :type: float
+
+   .. method:: _init_params(self)
+
+      This method generates generates the parameter matrices for all layers of
+      the neural network. This function does not return anything, but instead
+      saves an attribute
+
+      :param None:
+
+      :returns: Dictionary of parameters in neural network.
+      :rtype: param_dict (dict)
+
+
+   .. method:: forward(self, X)
+
+      This method is responsible for one forward pass of the
+      entire neural network.
+
+      :param X: Input matrix with size [batch_size, features].
+      :type X: array-like
+
+      :returns: Output of forward pass.
+                cache (dictionary of arry-like): Memory store of Z and A matrices
+                    for use in backprop.
+      :rtype: output (array-like)
+
+
+   .. method:: _single_forward(self, W_curr, b_curr, A_prev, activation)
+
+      This method is used for a single feedfoward pass on
+      a single layer.
+
+      :param W_curr: Current layer weight matrix.
+      :type W_curr: array-like
+      :param b_curr: Current layer bias matrix.
+      :type b_curr: array-like
+      :param A_prev: Previous layer activation matrix.
+      :type A_prev: array-like
+      :param activation: Name of activation function for current layer.
+      :type activation: str
+
+      :returns: Current layer activation matrix.
+                Z_curr (array-like): Current layer linear transformed matrix.
+      :rtype: A_curr (array-like)
+
+
+   .. method:: backprop(self, y, y_hat, cache)
+
+      This method is responsible for the entire backprop for the whole
+      neural network.
+
+      :param y: Ground truth labels.
+      :type y: array-like
+      :param y_hat: Predicted output values.
+      :type y_hat: array-like
+      :param cache: Dictionary containing the information about the
+                    most recent forward pass, specifically A and Z matrices.
+      :type cache: dict
+
+      :returns:
+
+                Dictionary containing the graident information
+                    from this round of backprop.
+      :rtype: grad_dict (dict)
+
+
+   .. method:: _single_backprop(self, W_curr, b_curr, Z_curr, A_prev, dA_curr, activation_curr)
+
+      This method is used for a single backprop pass on
+      a single layer.
+
+      :param W_curr: Current layer weight matirx.
+      :type W_curr: array-like
+      :param b_curr: Current layer bias matrix.
+      :type b_curr: array-like
+      :param Z_curr: Current layer linear transform matrix.
+      :type Z_curr: array-like
+      :param A_prev: Previous layer activation matrix.
+      :type A_prev: array-like
+      :param dA_curr: Partial derivative of loss function
+                      with respect to current layer activation matrix.
+      :type dA_curr: array-like
+      :param activation_curr: Name of activation function of layer.
+      :type activation_curr: str
+
+      :returns:
+
+                Partial derivative of loss function
+                    with respect to previous layer activation matrix.
+                dW_curr (array-like): Partial derivative of loss function
+                    with respect to current layer weight matrix.
+                db_curr (array-like): Partial derivative of loss function
+                    with respect to current layer bias matrix.
+      :rtype: dA_prev (array-like)
+
+
+   .. method:: _update_params(self, grad_dict)
+
+      This function updates the parameters in the neural network after
+      backprop.
+
+      :param grad_dict: Dictionary containing the graident information
+                        from most recent round of backprop.
+      :type grad_dict: dict
+
+      :returns: None
+
+
+   .. method:: fit(self, X_train, y_train, X_val, y_val, early_stop=[10, 1e-12])
+
+      This function trains the nerual network via training for
+      the number of epochs defined at the initialization of this
+      class instance.
+
+      :param X_train: Input features of training set.
+      :type X_train: array-like
+      :param y_train: Labels for training set.
+      :type y_train: array-like
+      :param X_val: Input features of validation set.
+      :type X_val: array-like
+      :param y_val: Labels for validation set.
+      :type y_val: array-like
+      :param early_stop: Whether or not to stop when
+                         validation loss stops decreasing by a rate slower than
+                         early_stop_tol.
+      :type early_stop: bool, defatul=True
+
+      :returns: List of per epoch loss for training set.
+                per_epoch_loss_val (list): List of per epoch loss for validation set.
+      :rtype: per_epoch_loss_train (list)
+
+
+   .. method:: predict(self, X)
+
+      This function returns the prediction of the nerual network model.
+
+      :param X: Input data for prediction.
+      :type X: array-like
+
+      :returns: Prediction.
+      :rtype: y_hat (array-like)
+
+
+   .. method:: _sigmoid(self, Z)
+
+      Sigmoid activation function.
+
+      :param Z: Output of layer linear tranform.
+      :type Z: array-like
+
+      :returns: Activation function output.
+      :rtype: nl_transform (array-like)
+
+
+   .. method:: _relu(self, Z)
+
+      ReLU activation function.
+
+      :param Z: Output of layer linear tranform.
+      :type Z: array-like
+
+      :returns: Activation function output.
+      :rtype: nl_transform (array-like)
+
+
+   .. method:: _sigmoid_backprop(self, dA, Z)
+
+      Sigmoid derivative for backprop.
+
+      :param dA: Partial derivative of previous layer activation
+                 matrix.
+      :type dA: array-like
+      :param Z: Output of layer linear tranform.
+      :type Z: array-like
+
+      :returns: Partial derivative of current layer Z matrix.
+      :rtype: dZ (array-like)
+
+
+   .. method:: _relu_backprop(self, dA, Z)
+
+      ReLU derivative for backprop.
+
+      :param dA: Partial derivative of previous layer activation
+                 matrix.
+      :type dA: array-like
+      :param Z: Output of layer linear tranform.
+      :type Z: array-like
+
+      :returns: Partial derivative of current layer Z matrix.
+      :rtype: dZ (array-like)
+
+
+   .. method:: _binary_crossentropy(self, y, y_hat)
+
+      Binary crossentropy loss function.
+
+      :param y_hat: Predicted output.
+      :type y_hat: array-like
+      :param y: Ground truth output.
+      :type y: array-like
+
+      :returns: Average loss of mini-batch.
+      :rtype: loss (array-like)
+
+
+   .. method:: _binary_crossentropy_backprop(self, y, y_hat)
+
+      Binary crossentropy loss function derivative.
+
+      :param y_hat: Predicted output.
+      :type y_hat: array-like
+      :param y: Ground truth output.
+      :type y: array-like
+
+      :returns:
+
+                partial derivative of loss with respect
+                    to A matrix.
+      :rtype: dA (array-like)
+
+
+   .. method:: _mean_squared_error(self, y, y_hat)
+
+      Mean squared error loss.
+
+      :param y: Ground truth output.
+      :type y: array-like
+      :param y_hat: Predicted output.
+      :type y_hat: array-like
+
+      :returns: Average loss of mini-batch.
+      :rtype: (array-like)
+
+
+   .. method:: _mean_squared_error_backprop(self, y, y_hat)
+
+      Mean square error loss derivate.
+
+      :param y: Ground truth output.
+      :type y: array-like
+      :param y_hat: Predicted output.
+      :type y_hat: array-like
+
+      :returns:
+
+                partial derivative of loss with respect
+                    to A matrix.
+      :rtype: dA (array-like)
+
+
+   .. method:: _loss_function(self, y, y_hat)
+
+      Loss function, computes loss given y_hat and y. This function is
+      here for the case that someone where to want to write more loss
+      functions than just binary crossentropy.
+
+      :param y: Ground truth output.
+      :type y: array-like
+      :param y_hat: Predicted output.
+      :type y_hat: array-like
+
+      :returns: Average loss of mini-batch.
+      :rtype: loss (array-like)
+
+
+   .. method:: _loss_function_backprop(self, y, y_hat)
+
+      This function performs the derivative of the loss function with respect
+      to the loss itself.
+
+      :param y: Ground truth output.
+      :type y: array-like
+      :param y_hat: Predicted output.
+      :type y_hat: array-like
+
+      :returns:
+
+                partial derivative of loss with respect
+                    to A matrix.
+      :rtype: dA (array-like)
+
+
+   .. method:: accuracy(self, y_hat, y, decision_boundry=0.5)
+
+      This function takes the accuracy for binary classification tasks.
+      :param y: Ground truth output.
+      :type y: array-like
+      :param y_hat: Predicted output.
+      :type y_hat: array-like
+
+      :returns: Average accuracy
+      :rtype: acc (float)
+
+
+   .. method:: calculate_auroc(self, X, y_gt, n_steps=100, make_plot=True)
+
+      This function calculates the AUROC and plots the ROC curve.
+
+      :param X: Input testing data
+      :type X: array-like
+      :param y_gt: Ground truth labels for testing data
+      :type y_gt: array-like
+      :param n_steps: Number of threshold steps to use when
+                      calculating.
+      :type n_steps: int, default=100
+      :param plot: Boolean regarding a plot.
+      :type plot: bool
+
+      :returns:
+
+                Area under the reciever operator characterstic
+                    curve or AUROC.
+      :rtype: roc_auc (float)
+
+
+

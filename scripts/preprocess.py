@@ -1,6 +1,88 @@
 import numpy as np
 import pandas as pd
 
+
+### CLASS DEFINITONS ###
+
+class KFoldCV:
+    '''
+    This class is used for running a K-fold cross validation. This K-fold
+    cross validation stratifies by the label such that each of the folds
+    has an equal proportion of positive to negative examples. This ensures
+    that class imbalance does not introduce errors to the cross-validation.
+
+    Parameters:
+        X (array-like): Array of input features.
+        y (array-like): Array of labels.
+        num_folds (int, default=5): Number of folds.
+        shuffle (bool, default=True): Whether or not to shuffle the
+            sequences before grouping into the k folds.
+
+    Attributes:
+        num_folds (int): Number of folds
+    '''
+    def __init__(self, X, y, num_folds=5, shuffle=True):
+        self.num_folds = num_folds
+        full_ds = np.hstack([X, y])
+        colnames = list(range(X.shape[1]))
+        colnames = [str(x) for x in colnames]
+        colnames.append('label')
+        df = pd.DataFrame(full_ds, columns=colnames)
+        split_X = []
+        split_y = []
+        for grp_name, grp in df.groupby('label'):
+            if shuffle == True:
+                grp = grp.sample(frac=1)
+                grp = grp.reset_index(drop=True)
+                grp_values = grp.values[:, :-1]
+            assert num_folds < len(grp)
+            split_grp = np.array_split(grp_values, num_folds, axis=0)
+            split_y.append([np.ones(X.shape[0])*int(grp_name) for X in split_grp])
+            split_X.append(split_grp)
+        folds_X = []
+        folds_y = []
+        for fold in range(len(split_X[0])):
+            fold_X = np.vstack([split_X[i][fold] for i in range(len(split_X))])
+            fold_y = np.hstack([split_y[i][fold] for i in range(len(split_y))])
+            fold_y = np.expand_dims(fold_y, axis=1)
+            full_fold = np.hstack([fold_X, fold_y])
+            np.random.shuffle(full_fold)
+            fold_X = full_fold[:, :-1]
+            fold_y = full_fold[:, -1]
+            folds_X.append(fold_X)
+            folds_y.append(fold_y)
+        self._folds_X = folds_X
+        self._folds_y = folds_y
+
+    def get_fold(self, fold=0):
+        '''
+        This function pulls training and testing data for a given fold, where
+        the specified fold corresponds to testing data.
+
+        Args:
+            fold (int, default=0): The fold to pull the training and test
+                sets for.
+
+        Returns:
+            X_train (array-like): Inputs for train set.
+            X_test (array-like): Inputs for test set.
+            y_train (array-like): Labels for train set.
+            y_test (array-like): Labels for test set.
+        '''
+        assert fold <= self.num_folds
+        split_X = self._folds_X.copy()
+        split_y = self._folds_y.copy()
+        X_test = split_X.pop(fold)
+        y_test = split_y.pop(fold)
+        y_test = np.expand_dims(y_test, axis=1)
+        X_train = np.vstack(split_X)
+        y_train = np.hstack(split_y)
+        y_train = np.expand_dims(y_train, axis=1)
+        return X_train, X_test, y_train, y_test
+
+
+### FUNCTION DEFINITONS ###
+
 def sample_negative_examples(neg_seq_arr, pos_seq_arr, num_samples=500, seq_length=17, seed=14):
     '''
     This function samples negative sequence examples when a class imbalances
@@ -47,6 +129,15 @@ def sample_negative_examples(neg_seq_arr, pos_seq_arr, num_samples=500, seq_leng
 
 def encode_seqs(seq_arr):
     '''
+    This function encodes a nucleic acid sequences into a flattened one hot
+    encoded vector for use as input into a ML model.
+
+    Args:
+        seq_arr (array-like): Array of sequences to encode.
+
+    Returns:
+        all_encodings (array-like): Array of encoded sequences, which is 4
+            times as long as the sequence length due to the one hot encoding.
     '''
     dna_dict = {'A': 0, 'T': 1, 'C': 2, 'G': 3}
     all_encodings = []
@@ -61,58 +152,19 @@ def encode_seqs(seq_arr):
     return all_encodings
 
 
-class KFoldCV:
-    '''
-    '''
-    def __init__(self, X, y, num_folds=5, shuffle=True):
-        self.num_folds = num_folds
-        full_ds = np.hstack([X, y])
-        colnames = list(range(X.shape[1]))
-        colnames = [str(x) for x in colnames]
-        colnames.append('label')
-        df = pd.DataFrame(full_ds, columns=colnames)
-        split_X = []
-        split_y = []
-        for grp_name, grp in df.groupby('label'):
-            if shuffle == True:
-                grp = grp.sample(frac=1)
-                grp = grp.reset_index(drop=True)
-                grp_values = grp.values[:, :-1]
-            assert num_folds < len(grp)
-            split_grp = np.array_split(grp_values, num_folds, axis=0)
-            split_y.append([np.ones(X.shape[0])*int(grp_name) for X in split_grp])
-            split_X.append(split_grp)
-        folds_X = []
-        folds_y = []
-        for fold in range(len(split_X[0])):
-            fold_X = np.vstack([split_X[i][fold] for i in range(len(split_X))])
-            fold_y = np.hstack([split_y[i][fold] for i in range(len(split_y))])
-            fold_y = np.expand_dims(fold_y, axis=1)
-            full_fold = np.hstack([fold_X, fold_y])
-            np.random.shuffle(full_fold)
-            fold_X = full_fold[:, :-1]
-            fold_y = full_fold[:, -1]
-            folds_X.append(fold_X)
-            folds_y.append(fold_y)
-        self._folds_X = folds_X
-        self._folds_y = folds_y
-
-    def get_fold(self, fold=0):
-        '''
-        '''
-        assert fold <= self.num_folds
-        split_X = self._folds_X.copy()
-        split_y = self._folds_y.copy()
-        X_test = split_X.pop(fold)
-        y_test = split_y.pop(fold)
-        y_test = np.expand_dims(y_test, axis=1)
-        X_train = np.vstack(split_X)
-        y_train = np.hstack(split_y)
-        y_train = np.expand_dims(y_train, axis=1)
-        return X_train, X_test, y_train, y_test
-
 def split_basic_binary(X, y, split=[0.8, 0.2], shuffle=True):
     '''
+    This function does a simple train test split based on the user-defined
+    split ratio. This function performs a stratified split such that the train
+    and test set each have the equal proportion of each class.
+
+    Args:
+        X (array-like): Input features for dataset.
+        y (array-like): Labels for dataset
+        split (list of float, default=[0.8, 0.2]): The split ratio in the order
+            [train ratio, test ratio].
+        shuffle (bool, default=True): Whether or not to shuffle data prior to
+            splitting into training and testing sets.
     '''
     neg_ds = X[np.squeeze(y == 0), :]
     split_idx_neg = int(np.round(split[0]*neg_ds.shape[0]))

@@ -1,6 +1,9 @@
 import numpy as np
 import pandas as pd
 
+
+### FUNCTION DEFINITONS ###
+
 def read_text_file(filename):
     '''
     This function reads in a text file into a numpy array of str dtype.

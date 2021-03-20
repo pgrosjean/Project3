@@ -1,0 +1,721 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>scripts.NN &mdash; BMI 206: Neural Networks 0.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> BMI 206: Neural Networks
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">BMI 206: Neural Networks</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li><code class="xref py py-mod docutils literal notranslate"><span class="pre">scripts.NN</span></code></li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../_sources/autoapi/scripts/NN/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-scripts.NN">
+<span id="scripts-nn"></span><h1><a class="reference internal" href="#module-scripts.NN" title="scripts.NN"><code class="xref py py-mod docutils literal notranslate"><span class="pre">scripts.NN</span></code></a><a class="headerlink" href="#module-scripts.NN" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#scripts.NN.NeuralNetwork" title="scripts.NN.NeuralNetwork"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NeuralNetwork</span></code></a></p></td>
+<td><p>This is a nerual network class that generates a nerual network</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="scripts.NN.NeuralNetwork">
+<em class="property">class </em><code class="sig-prename descclassname">scripts.NN.</code><code class="sig-name descname">NeuralNetwork</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">nn_architechture</span></em>, <em class="sig-param"><span class="n">lr</span><span class="o">=</span><span class="default_value">0.05</span></em>, <em class="sig-param"><span class="n">seed</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">epochs</span><span class="o">=</span><span class="default_value">100</span></em>, <em class="sig-param"><span class="n">loss_function</span><span class="o">=</span><span class="default_value">'binary_crossentropy'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scripts.NN.NeuralNetwork" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a nerual network class that generates a nerual network
+and allows for its training and use for prediction base on user
+defined input parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nn_architechture</strong> (<em>list of dicts</em>) – This list of dictionaries describes
+the fully connected layers of the artificial neural network.</p></li>
+<li><p><strong>lr</strong> (<em>float</em>) – Learning Rate (alpha).</p></li>
+<li><p><strong>seed</strong> (<em>int</em>) – Random seed for assuring reproducibility.</p></li>
+<li><p><strong>lambda</strong> (<em>float</em>) – L2 regularization paramter.</p></li>
+<li><p><strong>batch_size</strong> (<em>int</em>) – Size of mini-batchs used for training.</p></li>
+<li><p><strong>epochs</strong> (<em>int</em>) – Number of epochs during training.</p></li>
+<li><p><strong>loss_function</strong> (<em>str</em>) – Name of loss function can be one of multiple.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="scripts.NN.NeuralNetwork.arch">
+<code class="sig-name descname">arch</code><a class="headerlink" href="#scripts.NN.NeuralNetwork.arch" title="Permalink to this definition">¶</a></dt>
+<dd><p>This list of dictionaries describes
+the fully connected layers of the artificial neural network.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>list of dicts</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="scripts.NN.NeuralNetwork.param_dict">
+<code class="sig-name descname">param_dict</code><a class="headerlink" href="#scripts.NN.NeuralNetwork.param_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dictionary of parameters in neural network.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="scripts.NN.NeuralNetwork.lr">
+<code class="sig-name descname">lr</code><a class="headerlink" href="#scripts.NN.NeuralNetwork.lr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Learning rate.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="scripts.NN.NeuralNetwork._init_params">
+<code class="sig-name descname">_init_params</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scripts.NN.NeuralNetwork._init_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method generates generates the parameter matrices for all layers of
+the neural network. This function does not return anything, but instead
+saves an attribute</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dictionary of parameters in neural network.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>param_dict (dict)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="scripts.NN.NeuralNetwork.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">X</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scripts.NN.NeuralNetwork.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is responsible for one forward pass of the
+entire neural network.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>X</strong> (<em>array-like</em>) – Input matrix with size [batch_size, features].</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p>Output of forward pass.
+cache (dictionary of arry-like): Memory store of Z and A matrices</p>
+<blockquote>
+<div><p>for use in backprop.</p>
+</div></blockquote>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>output (array-like)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="scripts.NN.NeuralNetwork._single_forward">
+<code class="sig-name descname">_single_forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">W_curr</span></em>, <em class="sig-param"><span class="n">b_curr</span></em>, <em class="sig-param"><span class="n">A_prev</span></em>, <em class="sig-param"><span class="n">activation</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scripts.NN.NeuralNetwork._single_forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is used for a single feedfoward pass on
+a single layer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>W_curr</strong> (<em>array-like</em>) – Current layer weight matrix.</p></li>
+<li><p><strong>b_curr</strong> (<em>array-like</em>) – Current layer bias matrix.</p></li>
+<li><p><strong>A_prev</strong> (<em>array-like</em>) – Previous layer activation matrix.</p></li>
+<li><p><strong>activation</strong> (<em>str</em>) – Name of activation function for current layer.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Current layer activation matrix.
+Z_curr (array-like): Current layer linear transformed matrix.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>A_curr (array-like)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="scripts.NN.NeuralNetwork.backprop">
+<code class="sig-name descname">backprop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">y_hat</span></em>, <em class="sig-param"><span class="n">cache</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scripts.NN.NeuralNetwork.backprop" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is responsible for the entire backprop for the whole
+neural network.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y</strong> (<em>array-like</em>) – Ground truth labels.</p></li>
+<li><p><strong>y_hat</strong> (<em>array-like</em>) – Predicted output values.</p></li>
+<li><p><strong>cache</strong> (<em>dict</em>) – Dictionary containing the information about the
+most recent forward pass, specifically A and Z matrices.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Dictionary containing the graident information</dt><dd><p>from this round of backprop.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>grad_dict (dict)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="scripts.NN.NeuralNetwork._single_backprop">
+<code class="sig-name descname">_single_backprop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">W_curr</span></em>, <em class="sig-param"><span class="n">b_curr</span></em>, <em class="sig-param"><span class="n">Z_curr</span></em>, <em class="sig-param"><span class="n">A_prev</span></em>, <em class="sig-param"><span class="n">dA_curr</span></em>, <em class="sig-param"><span class="n">activation_curr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scripts.NN.NeuralNetwork._single_backprop" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is used for a single backprop pass on
+a single layer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>W_curr</strong> (<em>array-like</em>) – Current layer weight matirx.</p></li>
+<li><p><strong>b_curr</strong> (<em>array-like</em>) – Current layer bias matrix.</p></li>
+<li><p><strong>Z_curr</strong> (<em>array-like</em>) – Current layer linear transform matrix.</p></li>
+<li><p><strong>A_prev</strong> (<em>array-like</em>) – Previous layer activation matrix.</p></li>
+<li><p><strong>dA_curr</strong> (<em>array-like</em>) – Partial derivative of loss function
+with respect to current layer activation matrix.</p></li>
+<li><p><strong>activation_curr</strong> (<em>str</em>) – Name of activation function of layer.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Partial derivative of loss function</dt><dd><p>with respect to previous layer activation matrix.</p>
+</dd>
+<dt>dW_curr (array-like): Partial derivative of loss function</dt><dd><p>with respect to current layer weight matrix.</p>
+</dd>
+<dt>db_curr (array-like): Partial derivative of loss function</dt><dd><p>with respect to current layer bias matrix.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dA_prev (array-like)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="scripts.NN.NeuralNetwork._update_params">
+<code class="sig-name descname">_update_params</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">grad_dict</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scripts.NN.NeuralNetwork._update_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function updates the parameters in the neural network after
+backprop.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>grad_dict</strong> (<em>dict</em>) – Dictionary containing the graident information
+from most recent round of backprop.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="scripts.NN.NeuralNetwork.fit">
+<code class="sig-name descname">fit</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">X_train</span></em>, <em class="sig-param"><span class="n">y_train</span></em>, <em class="sig-param"><span class="n">X_val</span></em>, <em class="sig-param"><span class="n">y_val</span></em>, <em class="sig-param"><span class="n">early_stop</span><span class="o">=</span><span class="default_value">[10, 1e-12]</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scripts.NN.NeuralNetwork.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function trains the nerual network via training for
+the number of epochs defined at the initialization of this
+class instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X_train</strong> (<em>array-like</em>) – Input features of training set.</p></li>
+<li><p><strong>y_train</strong> (<em>array-like</em>) – Labels for training set.</p></li>
+<li><p><strong>X_val</strong> (<em>array-like</em>) – Input features of validation set.</p></li>
+<li><p><strong>y_val</strong> (<em>array-like</em>) – Labels for validation set.</p></li>
+<li><p><strong>early_stop</strong> (<em>bool</em><em>, </em><em>defatul=True</em>) – Whether or not to stop when
+validation loss stops decreasing by a rate slower than
+early_stop_tol.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>List of per epoch loss for training set.
+per_epoch_loss_val (list): List of per epoch loss for validation set.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>per_epoch_loss_train (list)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="scripts.NN.NeuralNetwork.predict">
+<code class="sig-name descname">predict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">X</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scripts.NN.NeuralNetwork.predict" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function returns the prediction of the nerual network model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>X</strong> (<em>array-like</em>) – Input data for prediction.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Prediction.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>y_hat (array-like)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="scripts.NN.NeuralNetwork._sigmoid">
+<code class="sig-name descname">_sigmoid</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">Z</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scripts.NN.NeuralNetwork._sigmoid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sigmoid activation function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>Z</strong> (<em>array-like</em>) – Output of layer linear tranform.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Activation function output.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>nl_transform (array-like)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="scripts.NN.NeuralNetwork._relu">
+<code class="sig-name descname">_relu</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">Z</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scripts.NN.NeuralNetwork._relu" title="Permalink to this definition">¶</a></dt>
+<dd><p>ReLU activation function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>Z</strong> (<em>array-like</em>) – Output of layer linear tranform.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Activation function output.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>nl_transform (array-like)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="scripts.NN.NeuralNetwork._sigmoid_backprop">
+<code class="sig-name descname">_sigmoid_backprop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">dA</span></em>, <em class="sig-param"><span class="n">Z</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scripts.NN.NeuralNetwork._sigmoid_backprop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sigmoid derivative for backprop.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dA</strong> (<em>array-like</em>) – Partial derivative of previous layer activation
+matrix.</p></li>
+<li><p><strong>Z</strong> (<em>array-like</em>) – Output of layer linear tranform.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Partial derivative of current layer Z matrix.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dZ (array-like)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="scripts.NN.NeuralNetwork._relu_backprop">
+<code class="sig-name descname">_relu_backprop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">dA</span></em>, <em class="sig-param"><span class="n">Z</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scripts.NN.NeuralNetwork._relu_backprop" title="Permalink to this definition">¶</a></dt>
+<dd><p>ReLU derivative for backprop.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dA</strong> (<em>array-like</em>) – Partial derivative of previous layer activation
+matrix.</p></li>
+<li><p><strong>Z</strong> (<em>array-like</em>) – Output of layer linear tranform.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Partial derivative of current layer Z matrix.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dZ (array-like)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="scripts.NN.NeuralNetwork._binary_crossentropy">
+<code class="sig-name descname">_binary_crossentropy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">y_hat</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scripts.NN.NeuralNetwork._binary_crossentropy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Binary crossentropy loss function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y_hat</strong> (<em>array-like</em>) – Predicted output.</p></li>
+<li><p><strong>y</strong> (<em>array-like</em>) – Ground truth output.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Average loss of mini-batch.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>loss (array-like)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="scripts.NN.NeuralNetwork._binary_crossentropy_backprop">
+<code class="sig-name descname">_binary_crossentropy_backprop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">y_hat</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scripts.NN.NeuralNetwork._binary_crossentropy_backprop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Binary crossentropy loss function derivative.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y_hat</strong> (<em>array-like</em>) – Predicted output.</p></li>
+<li><p><strong>y</strong> (<em>array-like</em>) – Ground truth output.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>partial derivative of loss with respect</dt><dd><p>to A matrix.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dA (array-like)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="scripts.NN.NeuralNetwork._mean_squared_error">
+<code class="sig-name descname">_mean_squared_error</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">y_hat</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scripts.NN.NeuralNetwork._mean_squared_error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mean squared error loss.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y</strong> (<em>array-like</em>) – Ground truth output.</p></li>
+<li><p><strong>y_hat</strong> (<em>array-like</em>) – Predicted output.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Average loss of mini-batch.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(array-like)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="scripts.NN.NeuralNetwork._mean_squared_error_backprop">
+<code class="sig-name descname">_mean_squared_error_backprop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">y_hat</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scripts.NN.NeuralNetwork._mean_squared_error_backprop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mean square error loss derivate.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y</strong> (<em>array-like</em>) – Ground truth output.</p></li>
+<li><p><strong>y_hat</strong> (<em>array-like</em>) – Predicted output.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>partial derivative of loss with respect</dt><dd><p>to A matrix.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dA (array-like)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="scripts.NN.NeuralNetwork._loss_function">
+<code class="sig-name descname">_loss_function</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">y_hat</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scripts.NN.NeuralNetwork._loss_function" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loss function, computes loss given y_hat and y. This function is
+here for the case that someone where to want to write more loss
+functions than just binary crossentropy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y</strong> (<em>array-like</em>) – Ground truth output.</p></li>
+<li><p><strong>y_hat</strong> (<em>array-like</em>) – Predicted output.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Average loss of mini-batch.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>loss (array-like)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="scripts.NN.NeuralNetwork._loss_function_backprop">
+<code class="sig-name descname">_loss_function_backprop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">y_hat</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scripts.NN.NeuralNetwork._loss_function_backprop" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function performs the derivative of the loss function with respect
+to the loss itself.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y</strong> (<em>array-like</em>) – Ground truth output.</p></li>
+<li><p><strong>y_hat</strong> (<em>array-like</em>) – Predicted output.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>partial derivative of loss with respect</dt><dd><p>to A matrix.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dA (array-like)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="scripts.NN.NeuralNetwork.accuracy">
+<code class="sig-name descname">accuracy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">y_hat</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">decision_boundry</span><span class="o">=</span><span class="default_value">0.5</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scripts.NN.NeuralNetwork.accuracy" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function takes the accuracy for binary classification tasks.
+:param y: Ground truth output.
+:type y: array-like
+:param y_hat: Predicted output.
+:type y_hat: array-like</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Average accuracy</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>acc (float)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="scripts.NN.NeuralNetwork.calculate_auroc">
+<code class="sig-name descname">calculate_auroc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">X</span></em>, <em class="sig-param"><span class="n">y_gt</span></em>, <em class="sig-param"><span class="n">n_steps</span><span class="o">=</span><span class="default_value">100</span></em>, <em class="sig-param"><span class="n">make_plot</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scripts.NN.NeuralNetwork.calculate_auroc" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function calculates the AUROC and plots the ROC curve.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>array-like</em>) – Input testing data</p></li>
+<li><p><strong>y_gt</strong> (<em>array-like</em>) – Ground truth labels for testing data</p></li>
+<li><p><strong>n_steps</strong> (<em>int</em><em>, </em><em>default=100</em>) – Number of threshold steps to use when
+calculating.</p></li>
+<li><p><strong>plot</strong> (<em>bool</em>) – Boolean regarding a plot.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Area under the reciever operator characterstic</dt><dd><p>curve or AUROC.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>roc_auc (float)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Parker Grosjean.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,360 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>scripts.preprocess &mdash; BMI 206: Neural Networks 0.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> BMI 206: Neural Networks
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">BMI 206: Neural Networks</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li><code class="xref py py-mod docutils literal notranslate"><span class="pre">scripts.preprocess</span></code></li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../_sources/autoapi/scripts/preprocess/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-scripts.preprocess">
+<span id="scripts-preprocess"></span><h1><a class="reference internal" href="#module-scripts.preprocess" title="scripts.preprocess"><code class="xref py py-mod docutils literal notranslate"><span class="pre">scripts.preprocess</span></code></a><a class="headerlink" href="#module-scripts.preprocess" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#scripts.preprocess.KFoldCV" title="scripts.preprocess.KFoldCV"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KFoldCV</span></code></a></p></td>
+<td><p>This class is used for running a K-fold cross validation. This K-fold</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#scripts.preprocess.sample_negative_examples" title="scripts.preprocess.sample_negative_examples"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sample_negative_examples</span></code></a>(neg_seq_arr, pos_seq_arr, num_samples=500, seq_length=17, seed=14)</p></td>
+<td><p>This function samples negative sequence examples when a class imbalances</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#scripts.preprocess.encode_seqs" title="scripts.preprocess.encode_seqs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">encode_seqs</span></code></a>(seq_arr)</p></td>
+<td><p>This function encodes a nucleic acid sequences into a flattened one hot</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#scripts.preprocess.split_basic_binary" title="scripts.preprocess.split_basic_binary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">split_basic_binary</span></code></a>(X, y, split=[0.8, 0.2], shuffle=True)</p></td>
+<td><p>This function does a simple train test split based on the user-defined</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="scripts.preprocess.KFoldCV">
+<em class="property">class </em><code class="sig-prename descclassname">scripts.preprocess.</code><code class="sig-name descname">KFoldCV</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">X</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">num_folds</span><span class="o">=</span><span class="default_value">5</span></em>, <em class="sig-param"><span class="n">shuffle</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scripts.preprocess.KFoldCV" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class is used for running a K-fold cross validation. This K-fold
+cross validation stratifies by the label such that each of the folds
+has an equal proportion of positive to negative examples. This ensures
+that class imbalance does not introduce errors to the cross-validation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>array-like</em>) – Array of input features.</p></li>
+<li><p><strong>y</strong> (<em>array-like</em>) – Array of labels.</p></li>
+<li><p><strong>num_folds</strong> (<em>int</em><em>, </em><em>default=5</em>) – Number of folds.</p></li>
+<li><p><strong>shuffle</strong> (<em>bool</em><em>, </em><em>default=True</em>) – Whether or not to shuffle the
+sequences before grouping into the k folds.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="scripts.preprocess.KFoldCV.num_folds">
+<code class="sig-name descname">num_folds</code><a class="headerlink" href="#scripts.preprocess.KFoldCV.num_folds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of folds</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="scripts.preprocess.KFoldCV.get_fold">
+<code class="sig-name descname">get_fold</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">fold</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scripts.preprocess.KFoldCV.get_fold" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function pulls training and testing data for a given fold, where
+the specified fold corresponds to testing data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>fold</strong> (<em>int</em><em>, </em><em>default=0</em>) – The fold to pull the training and test
+sets for.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Inputs for train set.
+X_test (array-like): Inputs for test set.
+y_train (array-like): Labels for train set.
+y_test (array-like): Labels for test set.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>X_train (array-like)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="scripts.preprocess.sample_negative_examples">
+<code class="sig-prename descclassname">scripts.preprocess.</code><code class="sig-name descname">sample_negative_examples</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">neg_seq_arr</span></em>, <em class="sig-param"><span class="n">pos_seq_arr</span></em>, <em class="sig-param"><span class="n">num_samples</span><span class="o">=</span><span class="default_value">500</span></em>, <em class="sig-param"><span class="n">seq_length</span><span class="o">=</span><span class="default_value">17</span></em>, <em class="sig-param"><span class="n">seed</span><span class="o">=</span><span class="default_value">14</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scripts.preprocess.sample_negative_examples" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function samples negative sequence examples when a class imbalances
+exists with more negative examples than postive examples. This function
+ensures that none of the negative examples are in the positive examples.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>neg_seq_arr</strong> (<em>array-like</em>) – Numpy array of negative sequences.</p></li>
+<li><p><strong>pos_seq_arr</strong> (<em>array-like</em>) – Numpy array of positive sequences.</p></li>
+<li><p><strong>num_samples</strong> (<em>int</em><em>, </em><em>default=500</em>) – Number of negative samples to return.</p></li>
+<li><p><strong>seq_length</strong> (<em>int</em><em>, </em><em>default=17</em>) – Length of sequence to return.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Numpy array of negative sequence examples.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>negative_samples (array-like)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="scripts.preprocess.encode_seqs">
+<code class="sig-prename descclassname">scripts.preprocess.</code><code class="sig-name descname">encode_seqs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">seq_arr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scripts.preprocess.encode_seqs" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function encodes a nucleic acid sequences into a flattened one hot
+encoded vector for use as input into a ML model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>seq_arr</strong> (<em>array-like</em>) – Array of sequences to encode.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>Array of encoded sequences, which is 4</dt><dd><p>times as long as the sequence length due to the one hot encoding.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>all_encodings (array-like)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="scripts.preprocess.split_basic_binary">
+<code class="sig-prename descclassname">scripts.preprocess.</code><code class="sig-name descname">split_basic_binary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">X</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">split</span><span class="o">=</span><span class="default_value">[0.8, 0.2]</span></em>, <em class="sig-param"><span class="n">shuffle</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scripts.preprocess.split_basic_binary" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function does a simple train test split based on the user-defined
+split ratio. This function performs a stratified split such that the train
+and test set each have the equal proportion of each class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>X</strong> (<em>array-like</em>) – Input features for dataset.</p></li>
+<li><p><strong>y</strong> (<em>array-like</em>) – Labels for dataset</p></li>
+<li><p><strong>split</strong> (<em>list of float</em><em>, </em><em>default=</em><em>[</em><em>0.8</em><em>, </em><em>0.2</em><em>]</em>) – The split ratio in the order
+[train ratio, test ratio].</p></li>
+<li><p><strong>shuffle</strong> (<em>bool</em><em>, </em><em>default=True</em>) – Whether or not to shuffle data prior to
+splitting into training and testing sets.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Parker Grosjean.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

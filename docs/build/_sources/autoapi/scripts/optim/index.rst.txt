@@ -1,0 +1,115 @@
+:mod:`scripts.optim`
+====================
+
+.. py:module:: scripts.optim
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   scripts.optim.Particle
+   scripts.optim.ParticleSwarm
+
+
+
+.. class:: Particle(x0)
+
+
+   This class is for use in the ParticleSwarm class and is an individual
+   particle in a swarm used for optimization.
+
+   :param x0: This is the inital position of the particle.
+   :type x0: list of float
+
+   .. attribute:: p_i
+
+      List of positions.
+
+      :type: list
+
+   .. attribute:: v_i
+
+      List of velocities.
+
+      :type: list
+
+   .. attribute:: p_best_i
+
+      List of best position.
+
+      :type: list
+
+   .. attribute:: err_best_i
+
+      Best error value.
+
+      :type: float
+
+   .. attribute:: err_i
+
+      List of errors over iterations.
+
+      :type: list
+
+   .. attribute:: num_dims
+
+      Number of dimension in optimization problem.
+
+      :type: int
+
+   .. method:: evaluate_particle(self, loss_func)
+
+      This function evaluates the loss function for this particle instance
+      amd updates if the particle position is the best opserved so far and
+      what the associated error is.
+
+      :param loss_func: Loss or cost function for evalutating
+                        the particles fitness.
+      :type loss_func: Python function
+
+
+   .. method:: velocity_update(self, p_best_g)
+
+      This function updates the velocity of the particle based on the intertia
+      cognative constant and the social constant.
+
+      :param p_best_g: Best position for the entire particle
+                       swarm group.
+      :type p_best_g: list of float
+
+
+   .. method:: position_update(self, bounds)
+
+      This function updates the position of particle for a given itertion of
+      the optimization procedure.
+
+      :param bounds: This is a list of the defined bounds for
+                     each feature in the optimization problem.
+      :type bounds: list of tuples
+
+
+
+.. class:: ParticleSwarm(loss_func, x0, bounds, num_particles, max_iter)
+
+
+   .. method:: optimize(self)
+
+      This method runs the optimization procedure defined in the initialization
+      of the class instance. This function takes no arguments, as it is just
+      running based on the paramters given in the initalization of the class
+      instance.
+
+      :returns:
+
+                Best particle position or the best values
+                    of the hyperparamters being tuned.
+                err_best_g (float): Loss function value at the best particle position.
+      :rtype: p_best_g (list of floats)
+
+
+

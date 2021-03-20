@@ -1,0 +1,121 @@
+:mod:`scripts.preprocess`
+=========================
+
+.. py:module:: scripts.preprocess
+
+
+Module Contents
+---------------
+
+Classes
+~~~~~~~
+
+.. autoapisummary::
+
+   scripts.preprocess.KFoldCV
+
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   scripts.preprocess.sample_negative_examples
+   scripts.preprocess.encode_seqs
+   scripts.preprocess.split_basic_binary
+
+
+.. class:: KFoldCV(X, y, num_folds=5, shuffle=True)
+
+
+   This class is used for running a K-fold cross validation. This K-fold
+   cross validation stratifies by the label such that each of the folds
+   has an equal proportion of positive to negative examples. This ensures
+   that class imbalance does not introduce errors to the cross-validation.
+
+   :param X: Array of input features.
+   :type X: array-like
+   :param y: Array of labels.
+   :type y: array-like
+   :param num_folds: Number of folds.
+   :type num_folds: int, default=5
+   :param shuffle: Whether or not to shuffle the
+                   sequences before grouping into the k folds.
+   :type shuffle: bool, default=True
+
+   .. attribute:: num_folds
+
+      Number of folds
+
+      :type: int
+
+   .. method:: get_fold(self, fold=0)
+
+      This function pulls training and testing data for a given fold, where
+      the specified fold corresponds to testing data.
+
+      :param fold: The fold to pull the training and test
+                   sets for.
+      :type fold: int, default=0
+
+      :returns: Inputs for train set.
+                X_test (array-like): Inputs for test set.
+                y_train (array-like): Labels for train set.
+                y_test (array-like): Labels for test set.
+      :rtype: X_train (array-like)
+
+
+
+.. function:: sample_negative_examples(neg_seq_arr, pos_seq_arr, num_samples=500, seq_length=17, seed=14)
+
+   This function samples negative sequence examples when a class imbalances
+   exists with more negative examples than postive examples. This function
+   ensures that none of the negative examples are in the positive examples.
+
+   :param neg_seq_arr: Numpy array of negative sequences.
+   :type neg_seq_arr: array-like
+   :param pos_seq_arr: Numpy array of positive sequences.
+   :type pos_seq_arr: array-like
+   :param num_samples: Number of negative samples to return.
+   :type num_samples: int, default=500
+   :param seq_length: Length of sequence to return.
+   :type seq_length: int, default=17
+
+   :returns: Numpy array of negative sequence examples.
+   :rtype: negative_samples (array-like)
+
+
+.. function:: encode_seqs(seq_arr)
+
+   This function encodes a nucleic acid sequences into a flattened one hot
+   encoded vector for use as input into a ML model.
+
+   :param seq_arr: Array of sequences to encode.
+   :type seq_arr: array-like
+
+   :returns:
+
+             Array of encoded sequences, which is 4
+                 times as long as the sequence length due to the one hot encoding.
+   :rtype: all_encodings (array-like)
+
+
+.. function:: split_basic_binary(X, y, split=[0.8, 0.2], shuffle=True)
+
+   This function does a simple train test split based on the user-defined
+   split ratio. This function performs a stratified split such that the train
+   and test set each have the equal proportion of each class.
+
+   :param X: Input features for dataset.
+   :type X: array-like
+   :param y: Labels for dataset
+   :type y: array-like
+   :param split: The split ratio in the order
+                 [train ratio, test ratio].
+   :type split: list of float, default=[0.8, 0.2]
+   :param shuffle: Whether or not to shuffle data prior to
+                   splitting into training and testing sets.
+   :type shuffle: bool, default=True
+
+

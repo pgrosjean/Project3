@@ -1,0 +1,42 @@
+:mod:`scripts.io`
+=================
+
+.. py:module:: scripts.io
+
+
+Module Contents
+---------------
+
+
+Functions
+~~~~~~~~~
+
+.. autoapisummary::
+
+   scripts.io.read_text_file
+   scripts.io.read_fasta_file
+
+
+.. function:: read_text_file(filename)
+
+   This function reads in a text file into a numpy array of str dtype.
+
+   :param filename: File path and name of file, filename should end in .txt.
+   :type filename: str
+
+   :returns: Numpy array of sequences.
+   :rtype: arr (array-like)
+
+
+.. function:: read_fasta_file(filename)
+
+   This function reads in a fasta file into a numpy array of sequence strings.
+
+   :param filename: File path and name of file, filename should end
+                    in .fa or .fasta.
+   :type filename: str
+
+   :returns: Numpy array of sequences.
+   :rtype: seqs (array-like)
+
+

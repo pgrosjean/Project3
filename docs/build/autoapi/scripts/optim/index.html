@@ -1,0 +1,369 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>scripts.optim &mdash; BMI 206: Neural Networks 0.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/graphviz.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> BMI 206: Neural Networks
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">BMI 206: Neural Networks</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li><code class="xref py py-mod docutils literal notranslate"><span class="pre">scripts.optim</span></code></li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../../_sources/autoapi/scripts/optim/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-scripts.optim">
+<span id="scripts-optim"></span><h1><a class="reference internal" href="#module-scripts.optim" title="scripts.optim"><code class="xref py py-mod docutils literal notranslate"><span class="pre">scripts.optim</span></code></a><a class="headerlink" href="#module-scripts.optim" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h3>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#scripts.optim.Particle" title="scripts.optim.Particle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Particle</span></code></a></p></td>
+<td><p>This class is for use in the ParticleSwarm class and is an individual</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#scripts.optim.ParticleSwarm" title="scripts.optim.ParticleSwarm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ParticleSwarm</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="scripts.optim.Particle">
+<em class="property">class </em><code class="sig-prename descclassname">scripts.optim.</code><code class="sig-name descname">Particle</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scripts.optim.Particle" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class is for use in the ParticleSwarm class and is an individual
+particle in a swarm used for optimization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x0</strong> (<em>list of float</em>) – This is the inital position of the particle.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="scripts.optim.Particle.p_i">
+<code class="sig-name descname">p_i</code><a class="headerlink" href="#scripts.optim.Particle.p_i" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of positions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="scripts.optim.Particle.v_i">
+<code class="sig-name descname">v_i</code><a class="headerlink" href="#scripts.optim.Particle.v_i" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of velocities.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="scripts.optim.Particle.p_best_i">
+<code class="sig-name descname">p_best_i</code><a class="headerlink" href="#scripts.optim.Particle.p_best_i" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of best position.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="scripts.optim.Particle.err_best_i">
+<code class="sig-name descname">err_best_i</code><a class="headerlink" href="#scripts.optim.Particle.err_best_i" title="Permalink to this definition">¶</a></dt>
+<dd><p>Best error value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="scripts.optim.Particle.err_i">
+<code class="sig-name descname">err_i</code><a class="headerlink" href="#scripts.optim.Particle.err_i" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of errors over iterations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="scripts.optim.Particle.num_dims">
+<code class="sig-name descname">num_dims</code><a class="headerlink" href="#scripts.optim.Particle.num_dims" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of dimension in optimization problem.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="scripts.optim.Particle.evaluate_particle">
+<code class="sig-name descname">evaluate_particle</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">loss_func</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scripts.optim.Particle.evaluate_particle" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function evaluates the loss function for this particle instance
+amd updates if the particle position is the best opserved so far and
+what the associated error is.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>loss_func</strong> (<em>Python function</em>) – Loss or cost function for evalutating
+the particles fitness.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="scripts.optim.Particle.velocity_update">
+<code class="sig-name descname">velocity_update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">p_best_g</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scripts.optim.Particle.velocity_update" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function updates the velocity of the particle based on the intertia
+cognative constant and the social constant.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>p_best_g</strong> (<em>list of float</em>) – Best position for the entire particle
+swarm group.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="scripts.optim.Particle.position_update">
+<code class="sig-name descname">position_update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">bounds</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scripts.optim.Particle.position_update" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function updates the position of particle for a given itertion of
+the optimization procedure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>bounds</strong> (<em>list of tuples</em>) – This is a list of the defined bounds for
+each feature in the optimization problem.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="scripts.optim.ParticleSwarm">
+<em class="property">class </em><code class="sig-prename descclassname">scripts.optim.</code><code class="sig-name descname">ParticleSwarm</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">loss_func</span></em>, <em class="sig-param"><span class="n">x0</span></em>, <em class="sig-param"><span class="n">bounds</span></em>, <em class="sig-param"><span class="n">num_particles</span></em>, <em class="sig-param"><span class="n">max_iter</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scripts.optim.ParticleSwarm" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt id="scripts.optim.ParticleSwarm.optimize">
+<code class="sig-name descname">optimize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#scripts.optim.ParticleSwarm.optimize" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method runs the optimization procedure defined in the initialization
+of the class instance. This function takes no arguments, as it is just
+running based on the paramters given in the initalization of the class
+instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><dl class="simple">
+<dt>Best particle position or the best values</dt><dd><p>of the hyperparamters being tuned.</p>
+</dd>
+</dl>
+<p>err_best_g (float): Loss function value at the best particle position.</p>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>p_best_g (list of floats)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Parker Grosjean.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
