@@ -7,10 +7,13 @@
 This repo holds all of the information needed to generate and run a neural network for both a binary classification task as well as an autoencoding class.
 This repository is set up with three main sections locations for the (1) Docs (2) Scripts Module and submodules and (3) the pytest functionalities. The scripts modules is broken into 4 submodules:
 
-NN: Neural Network related classes/functions
-io: Import export related classes/functions
-preprocess: Preprocessing realted classes/functions
-optim: Particle Swarn Optimization related classes/functions
+**NN**: Neural Network related classes/functions
+
+**io**: Import export related classes/functions
+
+**preprocess**: Preprocessing realted classes/functions
+
+**optim**: Particle Swarn Optimization related classes/functions
 
 ### Docs
 To view the API docs for the align module and specifically the classes contained within scripts and the 4 submodules please see the [API doc](https://github.com/pgrosjean/Project3/blob/main/docs/build/index.html) by running "open index.html" in the location of the file pointed to by the API doc link.
